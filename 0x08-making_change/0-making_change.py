@@ -1,8 +1,10 @@
 #!/usr/bin/python3
+
 '''Given a pile of coins of different values,
     determine the fewest number of coins needed to meet
     a given amount total.
 '''
+
 import sys
 
 def makeChange(coins, total):
@@ -13,13 +15,14 @@ def makeChange(coins, total):
         return 0
 
     else:
-        coin = sorted(coins)
-        coin.reverse()
+        coin = sorted(coins, reverse=True)
         counter = 0
         for i in coin:
             while(total >= i):
                 counter += 1
                 total -= i
+
         if total == 0:
             return counter
+
         return -1
