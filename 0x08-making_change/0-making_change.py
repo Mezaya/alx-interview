@@ -3,6 +3,7 @@
     determine the fewest number of coins needed to meet
     a given amount total.
 '''
+import sys
 
 def makeChange(coins, total):
     """This function will take a list of coins and use
