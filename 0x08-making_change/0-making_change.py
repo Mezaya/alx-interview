@@ -5,20 +5,36 @@
     a given amount total.
 '''
 
-import sys
-
 def makeChange(coins, total):
-    if total <= 0:
+    """Determines the fewest number of coins
+    Args:
+        coins (list[int]) : list of different values of changes
+        total (int): The given amount
+
+    Return:
+        change (int): the fewest number of coin
+    """
+
+    if total < 1:
         return 0
-    table = [sys.maxsize for i in range(total + 1)]
-    table[0] = 0
-    m = len(coins)
-    for i in range(1, total + 1):
-        for j in range(m):
-            if coins[j] <= i:
-                subres = table[i - coins[j]]
-                if subres != sys.maxsize and subres + 1 < table[i]:
-                    table[i] = subres + 1
-    if table[total] == sys.maxsize:
-        return -1
-    return table[total]
+
+    change = -1
+
+    if len(coins):
+        coins = sorted(coins, reverse=True)
+        noOfCoins = len(coins)
+        change = 0
+
+        for i in range(noOfCoins):
+            while total:
+                # if total >= 1:
+                if total - coins[i] >= 0:
+                    change += 1
+                    total -= coins[i]
+                else:
+                    break
+
+        if total != 0:
+            change = -1
+
+    return change
