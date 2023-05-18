@@ -6,21 +6,35 @@
 '''
 
 def makeChange(coins, total):
-    """This function will take a list of coins and use
-       that to calculate how much change the total will require
+    """Determines the fewest number of coins
+    Args:
+        coins (list[int]) : list of different values of changes
+        total (int): The given amount
+
+    Return:
+        change (int): the fewest number of coin
     """
-    if total <= 0:
+
+    if total < 1:
         return 0
 
-    else:
-        coin = sorted(coins, reverse=True)
-        counter = 0
-        for i in coin:
-            while(total >= i):
-                counter += 1
-                total -= i
+    change = -1
 
-        if total == 0:
-            return counter
+    if len(coins):
+        coins = sorted(coins, reverse=True)
+        noOfCoins = len(coins)
+        change = 0
 
-        return -1
+        for i in range(noOfCoins):
+            while total:
+                # if total >= 1:
+                if total - coins[i] >= 0:
+                    change += 1
+                    total -= coins[i]
+                else:
+                    break
+
+        if total != 0:
+            change = -1
+
+    return change
